@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  WGUniversal
+//
+//  Created by 莹 申 on 14-10-26.
+//  Copyright (c) 2014年 AndyM. All rights reserved.
+//
+
+#ifndef WGUniversal_PrefixHeader_pch
+#define WGUniversal_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//#ifdef __OPTIMIZE__
+#define NSLog(...)
+//#endif
+
+#endif
