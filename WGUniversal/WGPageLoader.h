@@ -27,7 +27,7 @@ typedef enum {
 @protocol WGPageLoaderDelegate;
 
 @interface WGViewInfo : NSObject
-
+@property (nonatomic, assign) BOOL animating;
 @property (nonatomic, assign) NSInteger pageId;
 @property (nonatomic, retain) NSString *cName;
 @property (nonatomic, retain) NSString *path;
@@ -183,6 +183,10 @@ typedef enum {
 # pragma mark pushRoot
 
 -(void) pushRoot: (UIViewController *) vc;
+
+# pragma mark 旋转动画
+- (void) startSpinView: (UIView *) view speed: (CGFloat) speed;
+- (void) stopSpinView: (UIView *) view;
 
 @end
 

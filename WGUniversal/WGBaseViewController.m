@@ -541,15 +541,33 @@
 
     if(self.cellParams != nil) {
         if(contentView == nil) {
+            
             if([self isKindOfClass:[WGTableViewViewController class]]){
                 UITableViewController *tableVC = (UITableViewController *) self;
-                UITableViewCell * cell = (UITableViewCell *)[tableVC.tableView cellForRowAtIndexPath:indexPath];
-                contentView = cell.contentView;
+                
+                NSArray *indexPaths = [tableVC.tableView indexPathsForVisibleRows];
+                
+                for (NSIndexPath *idxPath in indexPaths) {
+                    if(idxPath.section == indexPath.section && idxPath.row == indexPath.row) {
+                        UITableViewCell * cell = (UITableViewCell *)[tableVC.tableView cellForRowAtIndexPath:indexPath];
+                        contentView = cell.contentView;
+                    }
+                }
             }
             else {
                 UICollectionViewController *tableVC = (UICollectionViewController *) self;
-                UICollectionViewCell * cell = (UICollectionViewCell *)[tableVC.collectionView cellForItemAtIndexPath:indexPath];
-                contentView = cell.contentView;
+                NSArray *indexPaths = [tableVC.collectionView indexPathsForVisibleItems];
+                
+                for (NSIndexPath *idxPath in indexPaths) {
+                    if(idxPath.section == indexPath.section && idxPath.row == indexPath.row) {
+                        UICollectionViewCell * cell = (UICollectionViewCell *)[tableVC.collectionView cellForItemAtIndexPath:indexPath];
+                        contentView = cell.contentView;
+                    }
+                }
+            }
+            
+            if(contentView == nil) {
+                return;
             }
         }
         
@@ -583,21 +601,23 @@
 
 - (void) didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(self.cellParams != nil) {
-//        if([self isKindOfClass:[WGTableViewViewController class]]){
-//            UITableViewController *tableVC = (UITableViewController *) self;
-//            //[tableVC.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//            
-//        }
-//        else {
-//            UICollectionViewController *tableVC = (UICollectionViewController *) self;
-//            //[tableVC.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
-//            
-//            if(_lastSelectedIndexPath == nil || (_lastSelectedIndexPath.section != indexPath.section || _lastSelectedIndexPath.row != indexPath.row)) {
-//                [self updateContentView:nil atIndexPath:indexPath];
-//            }
-//        }
-
-        [self updateContentView:nil atIndexPath:indexPath];
+        if([self isKindOfClass:[WGTableViewViewController class]]){
+            UITableViewController *tableVC = (UITableViewController *) self;
+            //[tableVC.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            if(_lastSelectedIndexPath == nil || (_lastSelectedIndexPath.section == indexPath.section && _lastSelectedIndexPath.row == indexPath.row)) {
+                [self updateContentView:nil atIndexPath:indexPath];
+            }
+        }
+        else {
+            UICollectionViewController *tableVC = (UICollectionViewController *) self;
+            //[tableVC.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
+            
+            if(_lastSelectedIndexPath == nil || (_lastSelectedIndexPath.section == indexPath.section && _lastSelectedIndexPath.row == indexPath.row)) {
+                
+                [self updateContentView:nil atIndexPath:indexPath];
+            }
+        }
+        
         if(_keybaordNotificationAdded) {
             [self hideKeyboard:nil];
         }
