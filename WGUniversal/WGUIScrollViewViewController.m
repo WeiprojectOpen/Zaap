@@ -222,9 +222,10 @@
     if (_pageControl !=nil) {
         int x = aScrollView.contentOffset.x;
         
-        if(x > _pageControl.currentPage * self.view.frame.size.width) {
+        if(x >= _pageControl.currentPage * self.view.frame.size.width && x>0) {
             if(_pageControl.currentPage < _pageControl.numberOfPages) {
                 _pageControl.currentPage += 1;
+                
             }
         }
         else {

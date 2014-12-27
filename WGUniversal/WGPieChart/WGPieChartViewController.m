@@ -39,6 +39,8 @@
     
     _wgPieChart.pieRadius = MIN(_wgPieChart.frame.size.width/2, _wgPieChart.frame.size.height/2) - 10;
     _wgPieChart.pieCenter = CGPointMake(_wgPieChart.frame.size.width/2, _wgPieChart.frame.size.height/2);
+    _wgPieChart.labelRadius = _wgPieChart.pieRadius * 2 /3;
+    _wgPieChart.showPercentage = NO;
     
     [_wgPieChart reloadData];
     

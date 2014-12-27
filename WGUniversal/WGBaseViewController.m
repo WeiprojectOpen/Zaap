@@ -208,6 +208,11 @@
     wgInfo.vc = self;
     // wgInfo.properties = [self.view.wgInfo.properties objectForKey:@"cell"];
     contentOrHeaderFooterView.wgInfo = wgInfo;
+    
+    if(indexPath !=nil) {
+        [self handleDefaultSelection:indexPath forCellContentView:contentOrHeaderFooterView];
+    }
+    
     NSDictionary *properties = [self propertiesForCellAtIndexPath:indexPath contentView:contentOrHeaderFooterView];
     contentOrHeaderFooterView.wgInfo.properties = properties;
     
@@ -262,7 +267,7 @@
     NSDictionary *properties = [self.view.wgInfo.properties objectForKey:@"cell"];
     if(properties == nil) {
         WGPageLoader *pageLoader = [WGPageLoader getCurrentInstance];
-        NSString *name = [pageLoader defaultValueForParam:@"name" key:@"name" ofView:contentView];
+        NSString *name = [pageLoader valueForKey:@"name" ofView:contentView];
         if(name !=nil) {
             return [self.view.wgInfo.properties objectForKey:name];
         }
@@ -294,6 +299,51 @@
 }
 
 #pragma mark --- 绑定子视图
+
+- (void) handleDefaultSelection:(NSIndexPath *) indexPath forCellContentView:(UIView *) contentView{
+    
+    WGPageLoader *pageLoader = [WGPageLoader getCurrentInstance];
+    NSString *isDefault = [pageLoader valueForKey:@"default" ofView:contentView];
+
+    if(isDefault!=nil && [isDefault boolValue]) {
+        if([self isKindOfClass:[WGTableViewViewController class]]){
+            UITableViewController *tableVC = (UITableViewController *) self;
+            
+            NSArray *selected = [tableVC.tableView indexPathsForSelectedRows];
+            if(selected == nil || [selected count] ==0) {
+                [tableVC.tableView
+                 selectRowAtIndexPath:indexPath
+                 animated:NO
+                 scrollPosition:UITableViewScrollPositionNone
+                 ];
+            }
+            
+//            [[tableVC.tableView delegate]
+//             tableView:tableVC.tableView
+//             didSelectRowAtIndexPath:indexPath
+//             ];
+        }
+        else {
+            WGCollectionViewController *collectionVC = (WGCollectionViewController *) self;
+            BOOL setDefault = NO;
+            //if(collectionVC.collectionView.allowsMultipleSelection) {
+                NSArray *selected = [collectionVC.collectionView  indexPathsForSelectedItems];
+                if((selected == nil || [selected count] ==0)) {
+                    setDefault = YES;
+                }
+            //}
+            if(setDefault) {
+                [collectionVC.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                
+                NSArray *selected = [collectionVC.collectionView  indexPathsForSelectedItems];
+                if((selected == nil || [selected count] ==0)) {
+                    setDefault = YES;
+                }
+            }
+            //[[collectionVC.collectionView delegate] collectionView:collectionVC.collectionView didSelectItemAtIndexPath:indexPath];
+        }
+    }
+}
 
 -(void) bindSubviewToCellContentView:(UIView *) contentView
                  cellForItemAtIndexPath:(NSIndexPath *) indexPath
@@ -533,16 +583,21 @@
 
 - (void) didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(self.cellParams != nil) {
-        if([self isKindOfClass:[WGTableViewViewController class]]){
-            UITableViewController *tableVC = (UITableViewController *) self;
-            [tableVC.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        else {
-            UICollectionViewController *tableVC = (UICollectionViewController *) self;
-            [tableVC.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
-        }
+//        if([self isKindOfClass:[WGTableViewViewController class]]){
+//            UITableViewController *tableVC = (UITableViewController *) self;
+//            //[tableVC.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            
+//        }
+//        else {
+//            UICollectionViewController *tableVC = (UICollectionViewController *) self;
+//            //[tableVC.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
+//            
+//            if(_lastSelectedIndexPath == nil || (_lastSelectedIndexPath.section != indexPath.section || _lastSelectedIndexPath.row != indexPath.row)) {
+//                [self updateContentView:nil atIndexPath:indexPath];
+//            }
+//        }
 
-        //[self updateContentView:nil atIndexPath:indexPath];
+        [self updateContentView:nil atIndexPath:indexPath];
         if(_keybaordNotificationAdded) {
             [self hideKeyboard:nil];
         }
