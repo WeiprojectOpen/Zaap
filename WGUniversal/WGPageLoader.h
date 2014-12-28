@@ -106,8 +106,8 @@ typedef enum {
 
 - (NSString *) unitOfChart:(UIView *) view senderInfo: (WGViewInfo *) senderInfo;
 
-# pragma mark 设置HTML文本
-- (void) setHTML: (NSString *) html forView: (UIView *) view;
+# pragma mark 手势侦测结果
+- (void) gestureGlyphDetectedWithString: (NSString *) name andScore:(float)score;
 
 @end
 
@@ -187,6 +187,9 @@ typedef enum {
 # pragma mark 旋转动画
 - (void) startSpinView: (UIView *) view speed: (CGFloat) speed;
 - (void) stopSpinView: (UIView *) view;
+
+#pragma mark - 获取bundle文件中某资源文件是真实地址
+-(NSString *) getRealPathForResoureInBundle: (NSString *) relativePath;
 
 @end
 
