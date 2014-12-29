@@ -630,7 +630,11 @@
     [super viewDidAppear:animated];
     
     for (UIViewController *vc in self.childViewControllers) {
-        [vc viewDidAppear:animated];
+        if(!([vc isKindOfClass:
+               [WGCollectionViewController class]] ||
+               [vc isKindOfClass:[WGTableViewViewController class] ] || [vc isKindOfClass:[WGUIScrollViewViewController class]])) {
+            [vc viewDidAppear:animated];
+        }
     }
     
      WGPageLoader *pageLoader = [WGPageLoader getCurrentInstance];
