@@ -117,5 +117,9 @@
     return [self heightForFooterInSection:section];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self commitEditingStyle:editingStyle forRowAtIndexPath: indexPath];
+}
+
 @end
 

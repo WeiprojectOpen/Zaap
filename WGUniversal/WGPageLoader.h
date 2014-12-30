@@ -81,6 +81,9 @@ typedef enum {
 
 -(void) cellSelectedWithIndexPath:(NSIndexPath *)indexpath senderInfo: (WGViewInfo *) senderInfo;
 
+//cell编辑状态数据提交
+- (void) commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath senderInfo: (WGViewInfo *) senderInfo;
+
 
 
 -(NSInteger)numberOfRowsInSection:(NSInteger)section InSenderWithInfo: (WGViewInfo *) senderInfo;

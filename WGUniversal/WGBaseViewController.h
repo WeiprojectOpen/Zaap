@@ -47,6 +47,9 @@
 - (void)headerRereshing;
 - (void)footerRereshing;
 
+#pragma mark -- 编辑状态提交操作
+- (void) commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+
 - (void) addChildViewControllerToContainer: (UIViewController *)childController addToView: (BOOL) addToView;
 - (void) removeChildViewControllerFromContainer: (UIViewController *)childController;
 

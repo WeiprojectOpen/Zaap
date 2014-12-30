@@ -367,6 +367,15 @@
 }
 
 
+#pragma mark -- 编辑状态提交操作
+- (void) commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSObject<WGPageLoaderDelegate> *wgCellDelegate = self.view.wgInfo.vc.wgDelegate;
+    if(!(wgCellDelegate == nil || (![(NSObject *)wgCellDelegate respondsToSelector:@selector(heightForHeaderInSection:senderInfo:)]))) {
+        [wgCellDelegate commitEditingStyle: editingStyle forRowAtIndexPath:indexPath senderInfo:self.view.wgInfo];
+    }
+}
+
+
 - (CGFloat) heightForHeaderInSection:(NSInteger)section {
     NSObject<WGPageLoaderDelegate> *wgCellDelegate = self.view.wgInfo.vc.wgDelegate;
     if(wgCellDelegate == nil || (![(NSObject *)wgCellDelegate respondsToSelector:@selector(heightForHeaderInSection:senderInfo:)])) {
