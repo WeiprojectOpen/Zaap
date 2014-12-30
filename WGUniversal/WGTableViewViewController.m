@@ -117,6 +117,10 @@
     return [self heightForFooterInSection:section];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  [self canEditRowAtIndexPath:indexPath];
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self commitEditingStyle:editingStyle forRowAtIndexPath: indexPath];
 }
