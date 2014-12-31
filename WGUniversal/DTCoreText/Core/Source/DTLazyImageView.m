@@ -88,7 +88,11 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 - (void)didMoveToSuperview
 {
 	[super didMoveToSuperview];
+	[self maybeNeedLoadImage];
 	
+}
+
+- (void) maybeNeedLoadImage {
 	if (!self.image && (_url || _urlRequest) && !_connection && self.superview)
 	{
 		UIImage *image = [_imageCache objectForKey:_url];
@@ -106,7 +110,15 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 		}
 		
 		[self loadImageAtURL:_url];
-	}	
+	}
+}
+
+- (void) setUrl:(NSURL *)url {
+	
+	if(_url==nil || url==nil || (![_url.absoluteString isEqualToString:[url absoluteString]])) {
+		_url = url;
+		[self maybeNeedLoadImage];
+	}
 }
 
 - (void)cancelLoading
