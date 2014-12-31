@@ -21,4 +21,5 @@
 @property (nonatomic,assign) NSInteger currentPage;
 
 -(void)buildPageControl;
+-(void)createPageControl;
 @end

@@ -58,33 +58,32 @@
 // 
 //}
 
-
-
--(void)buildPageControl{
-
+-(void)createPageControl{
     _scrollView.delegate = self;
     self.view.clipsToBounds = YES;
     CGRect rect = self.view.frame;
     rect.origin.y = 0;;
     rect.size.height = 30;
     
-//    _pageControl = [[UIPageControl alloc] initWithFrame:rect];
-    _pageControl =[[UIPageControl alloc]init];
-    _pageControl.frame =rect;
-    
+    if(_pageControl == nil){
+        _pageControl = [[UIPageControl alloc] initWithFrame:rect];
+    }
     _pageControl.hidesForSinglePage =NO;
     _pageControl.userInteractionEnabled = YES;
-    _pageControl.numberOfPages = [self childViewControllers].count;
+}
 
-    //_scrollView.contentSize = CGSizeMake(self.view.frame.size.width *_pageControl.numberOfPages, self.view.frame.size.height);
+-(void)buildPageControl{
+    _pageControl.numberOfPages = [self childViewControllers].count;
     _pageControl.currentPage = 0;
     
     [_pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
+
+    //[_pageControl removeFromSuperview];
+    //[self.view addSubview:_pageControl];
     
+    //NSLog(@"%@",_pageControl.superview);
     [self loadData];
-    [self.view addSubview:_pageControl];
-    
-//    
+    [self.view bringSubviewToFront:_pageControl];
 }
 
 - (void)changePage:(id)sender {
