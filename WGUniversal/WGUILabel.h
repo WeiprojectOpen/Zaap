@@ -28,6 +28,11 @@ typedef enum
 @property(nonatomic)NSString *textSelected;
 @property(nonatomic)UIColor *textColorSelected;
 @property(nonatomic, assign)CGFloat textSizeSelected;
+
+@property(nonatomic)NSString *textNotSelected;
+@property(nonatomic)UIColor *textColorNotSelected;
+@property(nonatomic, assign)CGFloat textSizeNotSelected;
+
 @property(nonatomic, assign)BOOL selected;
 
 @end

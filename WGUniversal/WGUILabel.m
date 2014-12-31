@@ -10,9 +10,7 @@
 #import "Masonry.h"
 
 @implementation WGUILabel {
-    NSString *_textNotSelected;
-    UIColor *_textColorNotSelected;
-    CGFloat _textSizeNotSelected;
+
 }
 
 @synthesize verticalAlignment=_verticalAlignment;
@@ -65,11 +63,11 @@
 - (void) setSelected:(BOOL)selected {
     if(_selected != selected) {
         NSLog(@"current text = %@",self.text);
-        if(_textNotSelected == nil) {
-            _textNotSelected = self.text;
-            _textColorNotSelected = self.textColor;
-            _textSizeNotSelected = self.font.pointSize;
-        }
+//        if(_textNotSelected == nil) {
+//            _textNotSelected = self.text;
+//            _textColorNotSelected = self.textColor;
+//            _textSizeNotSelected = self.font.pointSize;
+//        }
         _selected = selected;
         [self setText:_selected && _textSelected!=nil  ? _textSelected : _textNotSelected];
         [self setTextColor:_selected && _textColorSelected!=nil ? _textColorSelected : _textColorNotSelected];
