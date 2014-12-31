@@ -66,15 +66,15 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 	
 	@autoreleasepool 
 	{
-		if (!_urlRequest)
-		{
+//		if (!_urlRequest)
+//		{
 			_urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:10.0];
-		}
-		else
-		{
-			[_urlRequest setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
-			[_urlRequest setTimeoutInterval:10.0];
-		}
+//		}
+//		else
+//		{
+//			[_urlRequest setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+//			[_urlRequest setTimeoutInterval:10.0];
+//		}
 		
 		_connection = [[NSURLConnection alloc] initWithRequest:_urlRequest delegate:self startImmediately:NO];
 		[_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -93,7 +93,7 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 }
 
 - (void) maybeNeedLoadImage {
-	if (!self.image && (_url || _urlRequest) && !_connection && self.superview)
+	if ((_url || _urlRequest) && !_connection && self.superview)
 	{
 		UIImage *image = [_imageCache objectForKey:_url];
 		
@@ -102,7 +102,8 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 			self.image = image;
 			_fullWidth = image.size.width;
 			_fullHeight = image.size.height;
-			
+//			self.contentMode = UIViewContentModeScaleAspectFill;
+//			[self setNeedsDisplay];
 			// this has to be synchronous
 			[self _notifyDelegate];
 			
@@ -208,6 +209,9 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 	self.image = image;
 	_fullWidth = image.size.width;
 	_fullHeight = image.size.height;
+//	
+//	self.contentMode = UIViewContentModeScaleAspectFill;
+//	[self setNeedsDisplay];
 
 	[self _notifyDelegate];
 	
@@ -222,7 +226,7 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 		if (image)
 		{
 			// cache image
-			[_imageCache setObject:image forKey:_url];
+			[_imageCache setObject:image forKey:_urlRequest.URL];
 		}
 		else
 		{
