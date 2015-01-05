@@ -10,6 +10,7 @@
 
 @interface EFloatBox : UILabel
 @property (nonatomic) float value;
+@property (nonatomic) int index;
 @property (nonatomic, strong) NSString *unit;
 @property (nonatomic, strong) NSString *title;
 

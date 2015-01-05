@@ -301,6 +301,8 @@
     eColumn.barColor = [UIColor blackColor];
     
     _valueLabel.text = [NSString stringWithFormat:@"%.1f",eColumn.eColumnDataModel.value];
+    [self eColumnChart:eColumnChart fingerDidEnterColumn:eColumn];
+    [self fingerDidLeaveEColumnChart:eColumnChart];
 }
 
 - (void)eColumnChart:(EColumnChart *)eColumnChart
@@ -311,28 +313,35 @@ fingerDidEnterColumn:(EColumn *)eColumn
      You can do even better effects here, according to your needs.*/
     NSLog(@"Finger did enter %d", eColumn.eColumnDataModel.index);
     CGFloat eFloatBoxX = eColumn.frame.origin.x + eColumn.frame.size.width * 1.25;
+    
+    if((eFloatBoxX+eColumn.frame.size.width) > eColumnChart.frame.size.width) {
+        eFloatBoxX = eFloatBoxX - eColumn.frame.size.width * 1.25 * 2;
+    }
+    
     CGFloat eFloatBoxY = eColumn.frame.origin.y + eColumn.frame.size.height * (1-eColumn.grade);
     if (_eFloatBox)
     {
         [_eFloatBox removeFromSuperview];
-        _eFloatBox.frame = CGRectMake(eFloatBoxX, eFloatBoxY, _eFloatBox.frame.size.width, _eFloatBox.frame.size.height);
-        [_eFloatBox setValue:eColumn.eColumnDataModel.value];
-        [eColumnChart addSubview:_eFloatBox];
+//        _eFloatBox.frame = CGRectMake(eFloatBoxX, eFloatBoxY, _eFloatBox.frame.size.width, _eFloatBox.frame.size.height);
+//        [_eFloatBox setValue:eColumn.eColumnDataModel.value];
+//        [eColumnChart addSubview:_eFloatBox];
     }
-    else
+    
     {
         _eFloatBox = [[EFloatBox alloc] initWithPosition:CGPointMake(eFloatBoxX, eFloatBoxY) value:eColumn.eColumnDataModel.value unit:eColumn.eColumnDataModel.unit title:eColumn.eColumnDataModel.label];
         _eFloatBox.alpha = 0.0;
+        _eFloatBox.index = eColumn.eColumnDataModel.index;
         [eColumnChart addSubview:_eFloatBox];
 
     }
     eFloatBoxY -= (_eFloatBox.frame.size.height + eColumn.frame.size.width * 0.25);
     _eFloatBox.frame = CGRectMake(eFloatBoxX, eFloatBoxY, _eFloatBox.frame.size.width, _eFloatBox.frame.size.height);
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionTransitionNone animations:^{
-        _eFloatBox.alpha = 1.0;
-        
-    } completion:^(BOOL finished) {
-    }];
+    _eFloatBox.alpha = 1.0;
+//    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionTransitionNone animations:^{
+//        _eFloatBox.alpha = 1.0;
+//        
+//    } completion:^(BOOL finished) {
+//    }];
     
 }
 
@@ -347,12 +356,15 @@ fingerDidLeaveColumn:(EColumn *)eColumn
 {
     if (_eFloatBox)
     {
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionTransitionNone animations:^{
+        int index = _eFloatBox.index;
+        [UIView animateWithDuration:1.5 delay:1 options:UIViewAnimationOptionTransitionNone animations:^{
             _eFloatBox.alpha = 0.0;
             _eFloatBox.frame = CGRectMake(_eFloatBox.frame.origin.x, _eFloatBox.frame.origin.y + _eFloatBox.frame.size.height, _eFloatBox.frame.size.width, _eFloatBox.frame.size.height);
         } completion:^(BOOL finished) {
-            [_eFloatBox removeFromSuperview];
-            _eFloatBox = nil;
+            if(_eFloatBox !=nil && _eFloatBox.index == index) {
+                [_eFloatBox removeFromSuperview];
+                _eFloatBox = nil;
+            }
         }];
         
     }
