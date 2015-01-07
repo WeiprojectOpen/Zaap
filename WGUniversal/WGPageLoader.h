@@ -196,6 +196,10 @@ typedef enum {
 #pragma mark - 获取bundle文件中某资源文件是真实地址
 -(NSString *) getRealPathForResoureInBundle: (NSString *) relativePath;
 
+
+#pragma mark - 获取设备的宽高
+-(CGRect)currentScreenBoundsDependOnOrientation;
+
 @end
 
 
