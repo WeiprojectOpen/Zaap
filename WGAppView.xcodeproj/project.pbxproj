@@ -58,7 +58,6 @@
 		68149BCA1A31779200AC9B87 /* EViewSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 68149BBD1A31779200AC9B87 /* EViewSwitcher.m */; };
 		68149BCB1A31779200AC9B87 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68149BBF1A31779200AC9B87 /* UICountingLabel.m */; };
 		68149BD51A3177DD00AC9B87 /* EColumnChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68149BD41A3177DD00AC9B87 /* EColumnChartViewController.m */; };
-		681FE94F1A0C7CC10069EE4A /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 681FE94E1A0C7CC10069EE4A /* GCPlaceholderTextView.m */; };
 		68255CCC1A4FD1D000CB25BE /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 68255CA31A4FD1D000CB25BE /* CDataScanner.m */; };
 		68255CCD1A4FD1D000CB25BE /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68255CA61A4FD1D000CB25BE /* CFilteringJSONSerializer.m */; };
 		68255CCE1A4FD1D000CB25BE /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 68255CA81A4FD1D000CB25BE /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -988,7 +987,7 @@
 		6175520319E787C10088DE6B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = AndyM;
 				TargetAttributes = {
 					6175520A19E787C10088DE6B = {
@@ -1186,7 +1185,6 @@
 				6835C10519F0931F000A423C /* TestViewController.m in Sources */,
 				68149BD51A3177DD00AC9B87 /* EColumnChartViewController.m in Sources */,
 				68149BC41A31779200AC9B87 /* EColumnDataModel.m in Sources */,
-				681FE94F1A0C7CC10069EE4A /* GCPlaceholderTextView.m in Sources */,
 				68149BC51A31779200AC9B87 /* EFloatBox.m in Sources */,
 				61AEAA141A144DB3001237EE /* SEFilterKnob.m in Sources */,
 				68255CD71A4FD1D000CB25BE /* WTMGlyph.m in Sources */,
@@ -1252,7 +1250,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
